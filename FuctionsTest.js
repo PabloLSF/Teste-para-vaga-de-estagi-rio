@@ -126,6 +126,35 @@ function codeString(){
 
 //E.6 Utilizando a api da viacep (https://viacep.com.br/) e o seu cep como entrada imprima o seu endereço no formato 'ENDERECO, NUMERO, CIDADE/ESTADO'.
 
+//gerado em https://viacep.com.br/ws/96085-470/json/
+
+
+var ender={
+  "cep": "96085-470",
+  "logradouro": "Avenida Domingos José de Almeida",
+  "complemento": "",
+  "bairro": "Areal",
+  "localidade": "Pelotas",
+  "uf": "RS",
+  "unidade": "",
+  "ibge": "4314407",
+  "gia": "583"
+};
+function findCep(obj){
+var ender={"endereco":"",
+            "numero":"",
+          "cidade":"",
+          "estado":""};
+  ender.endereco=obj.logradouro;
+  ender.numero=obj.gia;
+  ender.cidade=obj.localidade;
+  ender.estado=obj.uf;
+
+
+    return ender;
+
+}
+
 
 //E.7 Imprima uma mensagem de saudação com o nome completo para cada um dos objetos. O nome deve ter a primeira letra maiúscula.
 
@@ -214,7 +243,10 @@ console.log(arr);
 
 console.log('E.5');
 console.log(codeString());
- //
+
+ console.log('E.6');
+console.log(findCep(ender));
+
  console.log('E.7');
  printName(arry);
 
