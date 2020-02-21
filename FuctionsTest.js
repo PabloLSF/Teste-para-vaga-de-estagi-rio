@@ -53,27 +53,69 @@ console.log(arr);
 
 // arry para o proximo exercicio
 var arry = [
-    {id: 1, nome: 'juca', sobrenome: 'da silva', idade: 42},
-    {id: 2, nome: 'daniel', sobrenome: 'gonçalves',  idade: 21},
-    {id:3, nome: 'matheus', sobrenome: 'garcia', idade: 28},
-    {id: 4, nome: 'gabriel', sobrenome: 'pinheiro',  idade: 21}
+  {id: 1, nome: 'juca', sobrenome: 'da silva', idade: 42},
+  {id: 2, nome: 'daniel', sobrenome: 'gonçalves',  idade: 21},
+  {id:3, nome: 'matheus', sobrenome: 'garcia', idade: 28},
+  {id: 4, nome: 'gabriel', sobrenome: 'pinheiro',  idade: 21}
 ];
 //E.7 Imprima uma mensagem de saudação com o nome completo para cada um dos objetos. O nome deve ter a primeira letra maiúscula.
 
 for(var i=0;i<arry.length;i++){
-console.log("olá "+arry[i].nome+' '+arry[i].sobrenome+'!');
+  console.log("olá "+arry[i].nome+' '+arry[i].sobrenome+'!');
 }
 
 //E.8 Imprima a soma das idades (dica: utilize reduce)
 
 var sum=0;
 for(var i=0;i<arry.length;i++){
-sum=sum+arry[i].idade
+  sum=sum+arry[i].idade
 }
 console.log(sum);
 
 //E.9 Imprima o objeto se existir alguem com menos 25 anos.
+var ageLow=false;
+for(var i=0;i<arry.length;i++){
+  if(arry[i].idade<25){
+    ageLow=true;
+  }
+}
+if(ageLow){
+  console.log(arry)
+}
 
 //E.10 Imprima todos os elementos em que a idade é menor que 30 anos.
+for(var i=0;i<arry.length;i++){
+  if(arry[i].idade<30){
+    console.log('id: '+arry[i].id+'\n'+'Nome: '+arry[i].nome+' '+arry[i].sobrenome+'\n'+'Idade: '+arry[i].idade);
+  }
+}
+}
+
 
 //E.11 Ordene o array de forma decrescente por idade, em caso de empate o desempate é pelo id.
+var swapp;
+var n = arry.length;
+
+do {
+  swapp = false;
+  for (var i=0; i < n-1; i++)
+  {
+    if (arry[i].idade < arry[i+1].idade)
+    {
+      var temp = arry[i];
+      arry[i] = arry[i+1];
+      arry[i+1] = temp;
+      swapp = true;
+    }else if(arry[i].idade == arry[i+1].idade){
+      if(arry[i].id < arry[i+1].id){
+        var temp = arry[i];
+        arry[i] = arry[i+1];
+        arry[i+1] = temp;
+        swapp = true;
+      }
+    }
+  }
+  n--;
+} while (swapp);
+
+console.log(arry);
