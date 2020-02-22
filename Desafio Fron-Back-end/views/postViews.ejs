@@ -1,0 +1,33 @@
+<%- include('./partial/header.ejs'); %>
+<body>
+  <%- include('./partial/navbar.ejs'); %>
+  <div class="container">
+    <hr>
+    <h3><%=post.title%></h3>
+    <p><%-post.desc%></p>
+    <hr>
+    <form method="POST" action="/commenting">
+      <h3>Fazer comentário</h3>
+
+      <br>
+      <textarea placeholder=" " class = form-control name= "body"></textarea>
+      <input type="hidden" name="post" value="<%=post.id%>">
+      <br>
+      <button type="submit" class="btn btn-dark">Comentar</button>
+    </form>
+    <hr>
+    <h3>Comentários</h3>
+    <%comments.forEach(comment =>{%>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <p><%= comment.body%></p>
+        </div>
+
+      </div>
+
+      <% })%>
+    </div>
+
+  </body>
+  <%- include('./partial/footer.ejs'); %>

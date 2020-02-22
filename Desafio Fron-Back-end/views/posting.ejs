@@ -1,0 +1,37 @@
+<%- include('./partial/header.ejs'); %>
+<body>
+  <%- include('./partial/navbar.ejs'); %>
+
+  <div class ="container">
+    <div class="card" id="formulario-post">
+      <div class="card-header">
+        <h3>Realizar Post</h3>
+      </div>
+      <div class="card-body">
+        <hr>
+        <form method="POST" action="/savePost">
+          <label >Titulo</label>
+          <input type="text" placeholder="Titulo" class= "form-control" name="title">
+          <br>    <label >Descrição</label>
+          <textarea class="form-control" placeholder="Escreva o Post aqui" name="desc" id="post"></textarea>
+          <br>
+          <button class="btn btn-dark">Postar</button>
+
+
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+<%- include('./partial/footer.ejs'); %>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+  tinymce.init({
+    language:'pt_BR',
+    selector:"#post",
+    plugins: [
+    'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+    ]
+  })
+</script>

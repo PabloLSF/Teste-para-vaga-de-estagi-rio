@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const connection =require("./database/database");
 const Post = require("./database/Post");
 const Comment = require("./database/Comment");
-//database
+
 connection
 .authenticate()
 .then(()=>{
@@ -14,20 +14,19 @@ connection
   console.log(msgErro);
 })
 
-//estou dizendo para o express usar o ejs
 app.set('view engine','ejs');
 app.use(express.static('public'));
-//config bodyparse
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-//rotas
+
 
 app.get("/",(req,res)=>{
-  Pergunta.findAll({raw: true,order:[
-    ['titulo','ASC']//ASC =crescente || DESC decrescente
-  ]}).then(perguntas=>{
+  Post.findAll({raw: true,order:[
+    ['title','ASC']
+  ]}).then(posts=>{
     res.render("index",{
-      perguntas : perguntas
+      posts : posts
     });
   });
 });
@@ -36,9 +35,33 @@ app.get("/posting",(req,res)=>{
   res.render("posting");
 });
 
+app.get("/post/view/:id",(req,res)=>{
+  var id = req.params.id;
+  Post.findOne({
+    where:{id: id}
+  }).then(post => {
+    if(post != undefined){
+
+      Comment.findAll({
+        where:  {postId: post.id},
+        order: [ ['id','DESC'] ]
+
+      }).then(comments=> {
+        res.render("postViews",{
+          post: post,
+          comments: comments
+
+        });
+      });
+    }else{
+      res.redirect("/");
+    }
+  });
+});
+
 app.post("/savePost",(req,res)=>{
-  var titulo= req.body.titulo;
-  var desc= req.body.descricao;
+  var title= req.body.title;
+  var desc= req.body.desc;
   Post.create({
     title:title,
     desc: desc
@@ -47,38 +70,15 @@ app.post("/savePost",(req,res)=>{
   });
 });
 
-app.get("/post/:id",(req ,res) => {
-  var id = req.params.id;//procurar po um valor no banco
-  Post.findOne({
-    where:{id: id}
-  }).then(post => {
-    if(post != undefined){    //pergunta achada
-
-      Comment.findAll({//listas respostas
-        where:  {postId: post.id},
-        order: [ ['id','DESC'] ]
-
-      }).then(comment=> {
-        res.render("post",{
-          post: post,
-          comments: comments
-
-        });
-      });
-    }else{    //não encontrado
-      res.redirect("/");
-    }
-  });
-});
 
 app.post("/commenting",(req, res)=> {
   var body= req.body.body;
-  var postId =req.body.postId;
-  Resposta.create({
+  var postId =req.body.post;
+  Comment.create({
     body: body,
     postId: postId
   }).then(()=>{
-    res.redirect("/comment/"+postId);
+    res.redirect("/post/view/"+postId);
   });
 });
 
