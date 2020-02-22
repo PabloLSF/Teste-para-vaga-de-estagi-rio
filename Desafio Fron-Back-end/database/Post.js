@@ -11,5 +11,5 @@ const Post = connection.define('post',{
   }
 });
 
-Pergunta.sync({force:false}).then(()=>{});
+Post.sync({force:false}).then(()=>{});
  module.exports = Post;

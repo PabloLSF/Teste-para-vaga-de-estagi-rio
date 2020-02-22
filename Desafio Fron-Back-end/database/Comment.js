@@ -1,17 +1,16 @@
 const Sequelize = require("sequelize");
 const connection = require("./database");
 const Comment= connection.define("comment",{
-  corpo:{
+  body:{
     type: Sequelize.TEXT,
     allowNull:false,
 
   },
-  perguntaId: {
+  PostId: {
     type: Sequelize.INTEGER,
     allowNull: false
   }
 
-
 });
-Resposta.sync({force: false});
+Comment.sync({force: false});
 module.exports= Comment;
