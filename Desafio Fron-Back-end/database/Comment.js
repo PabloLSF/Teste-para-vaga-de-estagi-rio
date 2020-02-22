@@ -6,7 +6,7 @@ const Comment= connection.define("comment",{
     allowNull:false,
 
   },
-  PostId: {
+  postId: {
     type: Sequelize.INTEGER,
     allowNull: false
   }
